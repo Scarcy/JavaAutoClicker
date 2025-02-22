@@ -27,7 +27,7 @@ jobs:
               --type exe `
               --win-shortcut `
               --win-menu `
-              --icon icon.ico
+              --icon mouse.ico
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
