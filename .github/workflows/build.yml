@@ -18,14 +18,15 @@ jobs:
         run: mvn clean package
 
       - name: Create Windows EXE
+        shell: pwsh  # Ensure the script runs in PowerShell
         run: |
-          jpackage --name AutoClicker ^
-              --input target ^
-              --main-jar AutoClicker-1.0.jar ^
-              --main-class AutoClicker ^
-              --type exe ^
-              --win-shortcut ^
-              --win-menu ^
+          jpackage --name AutoClicker `
+              --input target `
+              --main-jar AutoClicker-1.0.jar `
+              --main-class AutoClicker `
+              --type exe `
+              --win-shortcut `
+              --win-menu `
               --icon icon.ico
 
       - name: Upload EXE as Artifact
