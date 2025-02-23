@@ -16,6 +16,8 @@ jobs:
 
       - name: Build JAR
         run: mvn clean package
+      - name: Rename Shaded JAR for jpackage
+        run: mv target/AutoClicker-1.0-shaded.jar target/AutoClicker-1.0.jar
 
       - name: Create Windows EXE
         #shell: pwsh  # Ensure the script runs in PowerShell
