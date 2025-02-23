@@ -21,17 +21,21 @@ jobs:
         shell: pwsh  # Ensure the script runs in PowerShell
         run: |
           jpackage --name AutoClicker `
-              --input target `
+              --input ./target `
               --main-jar AutoClicker-1.0.jar `
               --main-class AutoClicker `
+              --name AutoClicker `
+              --app-version 1.0.0 `
+              --vendor "Ellefsen" `
+              --description "Simple Java Swing application AutoClicker that supports clicking on multiple locations" `
               --type exe `
               --win-shortcut `
               --win-menu `
               --icon mouse.ico `
-              --dest dist
+              --dest ./out/artifacts/AutoClicker
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AutoClicker-Installer
-          path: dist/AutoClicker.exe
+          name: AutoClicker-Windows
+          path: ./out/artifacts/Autlclicker/AutoClicker.exe
