@@ -18,7 +18,7 @@ jobs:
         run: mvn clean package
 
       - name: Create Windows EXE
-        shell: pwsh  # Ensure the script runs in PowerShell
+        #shell: pwsh  # Ensure the script runs in PowerShell
         run: |
           jpackage --name AutoClicker `
               --input ./target `
