@@ -22,7 +22,7 @@ jobs:
         run: |
           jpackage --verbose --name AutoClicker `
               --input ./target `
-              --main-jar AutoClicker-1.0.jar `
+              --main-jar AutoClicker-1.0-shaded.jar `
               --main-class AutoClicker `
               --name AutoClicker `
               --app-version 1.0.0 `
