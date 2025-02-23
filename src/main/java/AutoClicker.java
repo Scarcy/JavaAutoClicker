@@ -29,12 +29,12 @@ public class AutoClicker extends JFrame implements NativeKeyListener, NativeMous
 
     public AutoClicker() {
         setTitle("Ellefsen AutoClicker");
-        setSize(300, 280);
+        setSize(300, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         this.log = Logger.getLogger(AutoClicker.class.getName());
         rand = new Random();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mouse.png")));
+        //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mouse.png")));
 
         // Location 1
         JLabel location1Label = new JLabel("Location 1:");
@@ -78,7 +78,7 @@ public class AutoClicker extends JFrame implements NativeKeyListener, NativeMous
         doubleClickCheckBox.setBounds(10, 130, 125, 25);
         //doubleClickCheckBox.setToolTipText("Sometimes single");
         JLabel doubleClickInfoLabel = new JLabel("ⓘ");
-        doubleClickInfoLabel.setBounds(130, 130, 20, 25);
+        doubleClickInfoLabel.setBounds(135, 130, 20, 25);
 
         // Create custom tooltip (JPanel)
         JPopupMenu tooltipPopup = new JPopupMenu();

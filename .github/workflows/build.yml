@@ -17,16 +17,6 @@ jobs:
       - name: Build JAR
         run: mvn clean package
 
-      - name: Generate Minimal Java Runtime with jlink
-        run: |
-          jlink --module-path "%JAVA_HOME%/jmods" `
-                --add-modules java.base,java.desktop `
-                --output ./runtime `
-                --strip-debug `
-                --compress 2 `
-                --no-header-files `
-                --no-man-pages
-
       - name: Create Windows EXE
         #shell: pwsh  # Ensure the script runs in PowerShell
         run: |
@@ -42,7 +32,6 @@ jobs:
               --win-shortcut `
               --win-menu `
               --icon ./mouse.ico `
-              --runtime-image ./runtime `
               --dest ./out/artifacts/AutoClicker
 
       - name: Upload EXE as Artifact
