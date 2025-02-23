@@ -38,10 +38,10 @@ jobs:
               --app-version 1.0.0 `
               --vendor "Ellefsen" `
               --description "Simple Java Swing application AutoClicker that supports clicking on multiple locations" `
-              --type exe `
+              --type msi `
               --win-shortcut `
               --win-menu `
-              --icon mouse.ico `
+              --icon ./mouse.ico `
               --runtime-image ./runtime `
               --dest ./out/artifacts/AutoClicker
 
@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoClicker-Windows
-          path: ./out/artifacts/AutoClicker/AutoClicker-1.0.0.exe
+          path: ./out/artifacts/AutoClicker/AutoClicker-1.0.0.msi
