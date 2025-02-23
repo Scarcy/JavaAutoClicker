@@ -31,7 +31,7 @@ jobs:
               --type msi `
               --win-shortcut `
               --win-menu `
-              --win-per-user-install`
+              --win-per-user-install `
               --icon ./mouse.ico `
               --dest ./out/artifacts/AutoClicker
 
