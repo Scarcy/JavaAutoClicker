@@ -32,7 +32,7 @@ jobs:
               --main-class AutoClicker `
               --name AutoClicker `
               --app-version ${{ env.VERSION }} `
-              --vendor "Ellefsen" `
+              --vendor Ellefsen `
               --description "Simple Java Swing application AutoClicker that supports clicking on multiple locations" `
               --type msi `
               --win-shortcut `
