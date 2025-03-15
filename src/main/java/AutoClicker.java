@@ -206,7 +206,7 @@ public class AutoClicker extends JFrame implements NativeKeyListener, NativeMous
 
     private void toggleClicking() {
         if (!clicking) {
-            if (point1 == null || point2 == null) {
+            if (point1 == null && point2 == null) {
                 JOptionPane.showMessageDialog(this, "Please select both click locations first!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -246,11 +246,14 @@ public class AutoClicker extends JFrame implements NativeKeyListener, NativeMous
             boolean withRandomDelay = randomDelayCheckBox.isSelected();
 
             while (clicking) {
-                performClick(robot, point1, doubleClick);
-                Thread.sleep(getDelay(delay, randomDelay, withRandomDelay));
-
-                performClick(robot, point2, doubleClick);
-                Thread.sleep(getDelay(delay, randomDelay, withRandomDelay));
+                if(point1 != null){
+                    performClick(robot, point1, doubleClick);
+                    Thread.sleep(getDelay(delay, randomDelay, withRandomDelay));
+                }
+                if(point2 != null){
+                    performClick(robot, point2, doubleClick);
+                    Thread.sleep(getDelay(delay, randomDelay, withRandomDelay));
+                }
             }
         } catch (InterruptedException e){
             clicking = false;

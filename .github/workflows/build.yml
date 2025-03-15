@@ -14,6 +14,12 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
+      - name: Extraxt Version from pom.xml
+        id: get-version
+        run:
+          $version = (Select-Xml -Path ./pom.xml -XPath "/project/version").Node.InnerText
+          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+
       - name: Build JAR
         run: mvn clean package
 
@@ -22,10 +28,10 @@ jobs:
         run: |
           jpackage --verbose --name AutoClicker `
               --input ./target `
-              --main-jar AutoClicker-1.0.jar `
+              --main-jar AutoClicker-${{ env.VERSION }}.jar `
               --main-class AutoClicker `
               --name AutoClicker `
-              --app-version 1.0.0 `
+              --app-version ${{ env.VERSION }} `
               --vendor "Ellefsen" `
               --description "Simple Java Swing application AutoClicker that supports clicking on multiple locations" `
               --type msi `
@@ -39,4 +45,26 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoClicker-Windows
-          path: ./out/artifacts/AutoClicker/AutoClicker-1.0.0.msi
+          path: ./out/artifacts/AutoClicker/AutoClicker-${{ env.VERSION }}.msi
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: AutoClicker v${{ env.VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload MSI to GitHub Release
+        id: upload-msi
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/artifacts/AutoClicker/AutoClicker-${{ env.VERSION }}.msi
+          asset_name: AutoClicker-${{ env.VERSION }}.msi
+          asset_content_type: application/octet-stream

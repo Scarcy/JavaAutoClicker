@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <!-- Allows using the Robot class to simulate keyboard and mouse events -->
+    <key>com.apple.security.automation.apple-events</key>
+    <true/>
+
+    <!-- Required for reading keyboard events globally (JNativeHook) -->
+    <key>com.apple.security.device.keyboard</key>
+    <true/>
+
+    <!-- Allows capturing user input (for global hotkeys) -->
+    <key>com.apple.security.input-monitoring</key>
+    <true/>
+
+    <!-- Allows simulating user input globally -->
+    <key>com.apple.security.accessibility</key>
+    <true/>
+  </dict>
+</plist>
