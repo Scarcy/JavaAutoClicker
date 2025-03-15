@@ -17,7 +17,7 @@ jobs:
       - name: Extraxt Version from pom.xml
         id: get-version
         run:
-          $version = (Select-Xml -Path ./pom.xml -XPath "/project/version").Node.InnerText.Trim();
+          $version = (Select-Xml -Path pom.xml -XPath "/project/version").Node.InnerText.Trim();
           echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append;
           echo ${{ env.VERSION }}
 
