@@ -57,7 +57,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
           tag_name: v${{ env.VERSION }}
           release_name: AutoClicker v${{ env.VERSION }}
@@ -68,7 +68,7 @@ jobs:
         id: upload-msi
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out/artifacts/AutoClicker/AutoClicker-${{ env.VERSION }}.msi
