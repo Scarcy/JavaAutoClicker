@@ -1,5 +1,8 @@
 name: Build Windows EXE
-on: push
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-windows:
@@ -14,15 +17,11 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
-      - name: Extract Version from pom.xml
+      - name: Extract Version from Git Tag
         id: get-version
         shell: bash
         run: |
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | grep -Eo '^[0-9]+\.[0-9]+\.[0-9]+$')
-          if [ -z "$VERSION" ]; then
-            echo "Error: Failed to extract version"
-            exit 1
-          fi
+          VERSION=${GITHUB_REF#refs/tags/v}
           echo "Extracted version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
@@ -30,15 +29,16 @@ jobs:
         run: mvn clean package
 
       - name: Create Windows EXE
-        #shell: pwsh  # Ensure the script runs in PowerShell
+        shell: pwsh
         run: |
+          echo "Building MSI for AutoClicker version: ${{ env.VERSION }}"
           jpackage --verbose --name AutoClicker `
               --input ./target `
               --main-jar AutoClicker-${{ env.VERSION }}.jar `
               --main-class AutoClicker `
               --name AutoClicker `
-              --app-version ${{ env.VERSION }} `
-              --vendor Ellefsen `
+              --app-version "${{ env.VERSION }}" `
+              --vendor "Ellefsen" `
               --description "Simple Java Swing application AutoClicker that supports clicking on multiple locations" `
               --type msi `
               --win-shortcut `
@@ -59,7 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
-          tag_name: v${{ env.VERSION }}
+          tag_name: ${{ github.ref_name }}
           release_name: AutoClicker v${{ env.VERSION }}
           draft: false
           prerelease: false
