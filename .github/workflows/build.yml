@@ -16,10 +16,11 @@ jobs:
 
       - name: Extraxt Version from pom.xml
         id: get-version
-        run:
-          $version = (Select-Xml -Path pom.xml -XPath "/project/version").Node.InnerText.Trim();
-          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append;
-          echo ${{ env.VERSION }}
+        shell: pwsh
+        run: |
+          $version = mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+          echo "Extracted version: $version"
+          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Build JAR
         run: mvn clean package
